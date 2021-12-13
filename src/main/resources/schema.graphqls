@@ -1,0 +1,31 @@
+input CityFilter {
+    name: String
+}
+input CityInput {
+    id: ID!
+    name: String!
+    photo: String!
+
+}
+
+type City {
+    id: ID!
+    name: String!
+    photo: String!
+
+}
+
+type CityPage {
+    cities: [City]
+    totalPages: Int
+    currentPage: Int
+}
+
+type Query {
+    cities(pageNumber: Int, pageSize: Int) : CityPage!
+    cityByName(name: String!) : City
+}
+
+type Mutation {
+    updateCity(city: CityInput!) : City!
+}
