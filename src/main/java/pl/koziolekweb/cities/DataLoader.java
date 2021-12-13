@@ -12,6 +12,7 @@ import pl.koziolekweb.cities.domain.City;
 import pl.koziolekweb.cities.domain.CityRepository;
 
 import java.nio.charset.StandardCharsets;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -39,6 +40,6 @@ class DataLoader implements ApplicationRunner {
 							city.setName(r.get("name"));
 							city.setPhoto(r.get("photo"));
 							return city;
-						}).toList());
+						}).collect(Collectors.toList()));
 	}
 }
