@@ -12,17 +12,13 @@ import pl.koziolekweb.cities.domain.CityMutation;
 class CityConfiguration {
 
 	@Bean
-	CityQuery query(CityRepository citiRepository) {
+	CityQuery cityQuery(CityRepository citiRepository) {
 		return new CityQuery(citiRepository);
 	}
 
 	@Bean
-	CityMutation mutation(CityRepository citiRepository) {
+	CityMutation cityMutation(CityRepository citiRepository) {
 		return new CityMutation(citiRepository);
 	}
 
-	@Bean
-	GraphQLSchema schema(CityQuery cityQuery, CityMutation cityMutation) {
-		return SchemaParser.newParser().file("schema.graphqls").resolvers(cityQuery, cityMutation).build().makeExecutableSchema();
-	}
 }

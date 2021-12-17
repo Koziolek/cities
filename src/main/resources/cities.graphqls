@@ -24,8 +24,12 @@ type CityPage {
 type Query {
     cities(pageNumber: Int, pageSize: Int) : CityPage!
     cityByName(name: String!) : City
+
+    getRole: String!
 }
 
 type Mutation {
     updateCity(city: CityInput!) : City!
+
+    setRole(role: String!) : String!
 }
