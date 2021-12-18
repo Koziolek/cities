@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import ReactPaginate from 'react-paginate';
 import {useQuery} from "@apollo/client";
-import {GET_CITIES} from "./queries";
-import {Search} from "./components/search";
+import {GET_CITIES} from "../queries";
+import {Search} from "./search";
 
 const editCity = (city) => {
     console.log("Edit " + city.name);
@@ -24,7 +24,7 @@ const Cities = ({currentCities}) => {
                 currentCities.map((city) => (
                     <tr>
                         <td>{city.name}</td>
-                        <td><img src={city.photo} alt={"City of " + city.name} className="object-scale-down h-48 w-96"/>
+                        <td><img src={city.photo} alt={"City of " + city.name} className="object-scale-down h-12"/>
                         </td>
                         <td>
                             <button onClick={(event) => editCity(city.name)} className="btn btn--primary ">Edit name
@@ -68,8 +68,8 @@ export const PageableCity = ({citiesPerPage, initialCities, initialPage, initial
             <Search/>
             <Cities currentCities={currentCities}/>
             <ReactPaginate
-                className="flex"
-                pageClassName="flex-1"
+                className="flx"
+                pageClassName="flx-1"
                 breakLabel="..."
                 nextLabel="next >"
                 onPageChange={handlePageClick}

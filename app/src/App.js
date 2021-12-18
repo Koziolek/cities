@@ -1,7 +1,6 @@
 import {useQuery} from "@apollo/client";
 import {GET_CITIES} from "./queries"
-import {PageableCity} from "./PageableCity";
-import {Login} from "./Login";
+import {PageableCity} from "./components/pageable_city";
 
 
 const App = () => {
@@ -14,7 +13,6 @@ const App = () => {
     return (
         <div className="App">
             <header className="App-header"> Simple City List</header>
-            <Login/>
             <PageableCity citiesPerPage={10}
                           initialPage={0}
                           initialPageCount={data.cities.totalPages}

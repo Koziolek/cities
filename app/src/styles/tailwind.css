@@ -585,6 +585,11 @@ select {
   outline: 1px auto -webkit-focus-ring-color;
 }
 
+div#root {
+  margin: auto;
+  width: 83.333333%;
+}
+
 .btn {
   border-radius: 0.5rem;
   padding: 0.75rem;
@@ -608,13 +613,16 @@ select {
 }
 
 img {
-  max-height: 3rem;
+  height: 3rem;
+  object-fit: scale-down;
 }
 
-ul.flex{
+ul.flx {
+  margin: auto;
   display: flex;
+  width: 83.333333%;
 }
 
-ul.flex li{
-  flex: 1
+ul.flx li {
+  flex: 1 1 0%;
 }

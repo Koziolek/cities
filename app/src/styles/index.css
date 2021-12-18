@@ -2,25 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+div#root{
+    @apply w-10/12 m-auto;
+}
+
 .btn {
-  @apply text-base font-medium rounded-lg p-3;
+    @apply text-base font-medium rounded-lg p-3;
 }
 
 .btn--primary {
-  @apply bg-sky-500 text-white;
+    @apply bg-sky-500 text-white;
 }
 
 .btn--secondary {
-  @apply bg-gray-100 text-gray-900;
+    @apply bg-gray-100 text-gray-900;
 }
 
 img {
-  max-height: 3rem;
+    @apply h-12 object-scale-down;
 }
 
-ul.flex{
-  display: flex;
+ul.flx {
+    @apply flex w-10/12 m-auto;
 }
-ul.flex li{
-  flex: 1
+
+ul.flx li{
+    @apply flex-1;
 }

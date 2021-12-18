@@ -4,13 +4,31 @@ import {CITY_BY_NAME} from "../queries";
 import {useState} from "react";
 import Modal from 'react-modal';
 
+const CityView = ({foundCity}) => {
+    if (foundCity) {
+        return (<>
+                <h3>{foundCity.name}</h3>
+                <img src={foundCity.photo} alt={"City of " + foundCity.name} className="h-48 w-96"/>
+                City Found
+            </>
+        )
+    } else {
+        return (<h3>No City found :(</h3>)
+    }
+}
+
 export const Search = () => {
-    const [openSearchResult, setOpenSearchResult] = useState(false);
+    const [searchResult, setSearchResult] = useState({
+        open: false,
+        city: null
+    });
     const {value: search, bind, reset: resetSearch} = useInput('');
-    const [searchQuery, {loading, error, data}] = useLazyQuery(CITY_BY_NAME,{
-        onCompleted: (data) =>{
-            console.log(data);
-            setOpenSearchResult(true);
+    const [searchQuery, {loading, error}] = useLazyQuery(CITY_BY_NAME, {
+        onCompleted: (data) => {
+            setSearchResult({
+                open: true,
+                city: data.cityByName
+            });
         }
     });
 
@@ -27,10 +45,15 @@ export const Search = () => {
     return (
         <>
             <Modal
-                isOpen={openSearchResult}
+                isOpen={searchResult.open}
                 contentLabel="Search"
             >
-                <button onClick={() => setOpenSearchResult(false)}>close</button>
+                <button onClick={() => setSearchResult({
+                    open: false,
+                    city: null
+                })}>close
+                </button>
+                <CityView foundCity={searchResult.city}/>
             </Modal>
             <form onSubmit={handleSubmit}>
                 <div>
