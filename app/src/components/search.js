@@ -4,6 +4,10 @@ import {CITY_BY_NAME} from "../queries";
 import {useState} from "react";
 import Modal from 'react-modal';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
+
+
 const CityView = ({foundCity}) => {
     if (foundCity) {
         return (<>
@@ -42,16 +46,33 @@ export const Search = () => {
         });
         resetSearch();
     }
+
+
+    const customStyles = {
+        content: {
+            top: '25%',
+            left: '25%',
+            right: 'auto',
+            bottom: 'auto',
+            minWidth: '25%',
+            minHeight: '25%',
+            // marginRight: '-50%',
+            // transform: 'translate(-50%, -50%)',
+        },
+    };
+
+
     return (
         <>
             <Modal
                 isOpen={searchResult.open}
                 contentLabel="Search"
+                style={customStyles}
             >
                 <button onClick={() => setSearchResult({
                     open: false,
                     city: null
-                })}>close
+                })}><FontAwesomeIcon icon={faWindowClose} />
                 </button>
                 <CityView foundCity={searchResult.city}/>
             </Modal>

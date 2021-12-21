@@ -12,7 +12,7 @@ public class CityQuery implements GraphQLQueryResolver {
 
 	private final CityRepository cityRepository;
 
-	public CityPage cities(int pageNumber, int pageSize) {
+	public final CityPage cities(int pageNumber, int pageSize) {
 
 		Page<City> all = cityRepository.findAll(PageRequest.of(pageNumber, pageSize));
 
@@ -23,7 +23,7 @@ public class CityQuery implements GraphQLQueryResolver {
 				.build();
 	}
 
-	public Optional<City> cityByName(String name) {
+	public final Optional<City> cityByName(String name) {
 		return cityRepository.findByName(name);
 	}
 

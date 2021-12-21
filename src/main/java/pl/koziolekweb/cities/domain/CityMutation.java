@@ -11,7 +11,7 @@ public class CityMutation implements GraphQLMutationResolver {
 	/*
 		simplification – we need all data to update otherwise we will null some data.
 	 */
-	public City updateCity(City city) {
+	public final City updateCity(City city) {
 		return cityRepository.findById(city.getId())
 				.map(byId -> {
 					byId.setPhoto(city.getPhoto());

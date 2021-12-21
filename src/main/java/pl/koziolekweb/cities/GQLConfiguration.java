@@ -1,21 +1,23 @@
 package pl.koziolekweb.cities;
 
+import graphql.kickstart.tools.GraphQLResolver;
 import graphql.kickstart.tools.SchemaParser;
 import graphql.schema.GraphQLSchema;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import pl.koziolekweb.cities.admin.AdminMutation;
-import pl.koziolekweb.cities.admin.AdminQuery;
-import pl.koziolekweb.cities.domain.CityMutation;
-import pl.koziolekweb.cities.domain.CityQuery;
+
+import java.util.List;
 
 @Configuration
+@Slf4j
 class GQLConfiguration {
 
 	@Bean
-	GraphQLSchema schema(AdminQuery adminQuery, AdminMutation adminMutation, CityQuery cityQuery, CityMutation cityMutation) {
+	GraphQLSchema schema(List<? extends GraphQLResolver<?>> resolvers) {
+		log.info("Found {} resolvers", resolvers.size());
 		return SchemaParser.newParser().file("cities.graphqls")
-				.resolvers(adminQuery, adminMutation, cityQuery, cityMutation)
+				.resolvers(resolvers)
 				.build()
 				.makeExecutableSchema();
 	}

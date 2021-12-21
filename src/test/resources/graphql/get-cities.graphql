@@ -1,0 +1,11 @@
+query{
+    cities(pageNumber: 0, pageSize: 5){
+        cities{
+            id
+            name
+            photo
+        }
+        totalPages
+        currentPage
+    }
+}

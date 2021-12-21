@@ -1,12 +1,14 @@
 package pl.koziolekweb.cities.domain;
 
-import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Setter
+@RequiredArgsConstructor
 class CityFilter {
 	private String name;
 
-	public City toCity(){
+	public City toCity() {
 		return new CityBuilder()
 				.name(this.name)
 				.build();
@@ -17,7 +19,7 @@ class CityFilter {
 		private String name;
 		private String photo;
 
-		public CityBuilder() {
+		CityBuilder() {
 		}
 
 		public CityBuilder id(Long val) {
@@ -36,7 +38,7 @@ class CityFilter {
 		}
 
 		public City build() {
-			var city =  new City();
+			var city = new City();
 			city.setId(this.id);
 			city.setName(this.name);
 			city.setPhoto(this.photo);

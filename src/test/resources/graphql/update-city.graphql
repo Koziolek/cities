@@ -1,0 +1,11 @@
+mutation{
+    updateCity(city: {
+        id: 1
+        name: "Kyoto"
+        photo: ""
+    }){
+        id
+        name
+        photo
+    }
+}

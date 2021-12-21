@@ -7,7 +7,8 @@ import lombok.AllArgsConstructor;
 public class AdminQuery implements GraphQLQueryResolver {
 
 	private final AdminState adminState;
-	public String getRole(){
+
+	public final String getRole() {
 		return adminState.getCurrentRole();
 	}
 }

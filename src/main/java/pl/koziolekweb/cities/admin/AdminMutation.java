@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 public class AdminMutation implements GraphQLMutationResolver {
 	private final AdminState adminState;
 
-	public String setRole(String role) {
+	public final String setRole(String role) {
 		adminState.setCurrentRole(role);
 		return role;
 	}

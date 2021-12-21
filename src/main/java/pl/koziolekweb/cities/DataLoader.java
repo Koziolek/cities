@@ -1,6 +1,7 @@
 package pl.koziolekweb.cities;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,15 +13,17 @@ import pl.koziolekweb.cities.domain.City;
 import pl.koziolekweb.cities.domain.CityRepository;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 class DataLoader implements ApplicationRunner {
 
 	private final CityRepository cityRepository;
 
-	@Value("classpath:cities.csv")
+	@Value("${pl.koziolek.data.file}")
 	private Resource dataFile;
 
 	@Override
@@ -31,7 +34,7 @@ class DataLoader implements ApplicationRunner {
 						.withIgnoreHeaderCase()
 						.withTrim());
 
-		cityRepository.saveAll(
+		List<City> cities = cityRepository.saveAll(
 				csvParser.getRecords()
 						.stream()
 						.map(r -> {
@@ -40,6 +43,8 @@ class DataLoader implements ApplicationRunner {
 							city.setName(r.get("name"));
 							city.setPhoto(r.get("photo"));
 							return city;
-						}).collect(Collectors.toList()));
+						})
+						.collect(Collectors.toList()));
+		log.info("Loaded {} cities", cities.size());
 	}
 }
