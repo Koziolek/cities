@@ -23,7 +23,7 @@ class DataLoader implements ApplicationRunner {
 
 	private final CityRepository cityRepository;
 
-	@Value("${pl.koziolek.data.file}")
+	@Value("${pl.koziolekweb.data.file}")
 	private Resource dataFile;
 
 	@Override
