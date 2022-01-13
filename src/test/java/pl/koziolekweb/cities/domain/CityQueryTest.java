@@ -23,12 +23,20 @@ public class CityQueryTest {
 	@DisplayName("Should return single city – Tokyo, that match to DB entry")
 	void cityByName() throws IOException {
 		GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("graphql/get-city.graphql");
+		System.out.println(graphQLResponse.getRawResponse());
 		assertThat(graphQLResponse)
-				.matches(r -> r.isOk());
-		assertThat(graphQLResponse.get("data.cityByName", City.class))
-				.hasName("Tokyo")
-				.hasPhoto(TOKYO_IMG)
-				.hasId(1L);
+				.matches(GraphQLResponse::isOk);
+		City tokyo = new City.CityBuilder()
+				.name("Tokyo")
+				.photo(TOKYO_IMG)
+				.id(1L)
+				.build();
+
+		CityPageAssert.assertThat(graphQLResponse.get("data.cityByName", CityPage.class))
+				.isCurrentPage(0)
+				.hasTotalPages(1)
+				.hasSize(1)
+				.contains(tokyo);
 	}
 
 	@Test
@@ -36,7 +44,7 @@ public class CityQueryTest {
 	void cities() throws IOException {
 		GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("graphql/get-cities.graphql");
 		assertThat(graphQLResponse)
-				.matches(r -> r.isOk());
+				.matches(GraphQLResponse::isOk);
 
 		City tokyo = new City.CityBuilder()
 				.name("Tokyo")

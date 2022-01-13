@@ -23,7 +23,7 @@ type CityPage {
 
 type Query {
     cities(pageNumber: Int, pageSize: Int) : CityPage!
-    cityByName(name: String!) : City
+    cityByName(name: String!) : CityPage!
 
     getRole: String!
 }

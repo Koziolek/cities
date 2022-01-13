@@ -31,7 +31,7 @@ export const Search = () => {
         onCompleted: (data) => {
             setSearchResult({
                 open: true,
-                city: data.cityByName
+                city: data.cityByName.cities[0]
             });
         }
     });

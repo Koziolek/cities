@@ -11,29 +11,17 @@ const editCity = (city) => {
 const Cities = ({currentCities}) => {
     return (
         <>
-            <table className={"table-auto"}>
-                <thead>
-                <tr>
-                    <th>City name</th>
-                    <th>City image</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
+            <section className="hexagon-gallery">
                 {currentCities &&
                 currentCities.map((city) => (
-                    <tr>
-                        <td>{city.name}</td>
-                        <td><img src={city.photo} alt={"City of " + city.name} className="object-scale-down h-12"/>
-                        </td>
-                        <td>
-                            <button onClick={(event) => editCity(city.name)} className="btn btn--primary ">Edit name
-                            </button>
-                        </td>
-                    </tr>
+                    <div className="hex">
+                        <div className="hex-content">
+                            <span className="city-name">{city.name}</span>
+                        </div>
+                        <img src={city.photo} alt={"City of " + city.name} className="object-scale-down h-12"/>
+                    </div>
                 ))}
-                </tbody>
-            </table>
+            </section>
         </>
     )
 }

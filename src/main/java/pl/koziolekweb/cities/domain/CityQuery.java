@@ -2,10 +2,11 @@ package pl.koziolekweb.cities.domain;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import java.util.Optional;
+import java.util.List;
 
 @AllArgsConstructor
 public class CityQuery implements GraphQLQueryResolver {
@@ -23,8 +24,15 @@ public class CityQuery implements GraphQLQueryResolver {
 				.build();
 	}
 
-	public final Optional<City> cityByName(String name) {
-		return cityRepository.findByName(name);
+	public final CityPage cityByName(String name) {
+		List<City> all = cityRepository.findByNormalizedNameIsContaining(StringUtils.stripAccents(name));
+
+		return CityPage.builder()
+				.cities(all)
+				.totalPages(1)
+				.currentPage(0)
+				.build();
+
 	}
 
 }

@@ -1,7 +1,11 @@
 query{
     cityByName(name: "Tokyo"){
-        id
-        name
-        photo
+        cities{
+            id
+            name
+            photo
+        }
+        totalPages
+        currentPage
     }
 }

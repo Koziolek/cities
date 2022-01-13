@@ -14,9 +14,13 @@ export const GET_CITIES = gql` query Cities($page: Int!, $size: Int!){
 
 export const CITY_BY_NAME = gql`query Cities($name:String!){
     cityByName(name: $name){
-        id
-        name
-        photo
+        cities{
+            id
+            name
+            photo
+        }
+        totalPages
+        currentPage
     }
 }`
 
