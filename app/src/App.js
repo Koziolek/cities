@@ -12,7 +12,7 @@ const App = () => {
 
     return (
         <div className="App">
-            <header className="App-header"> Simple City List</header>
+            <header className="app-header"> Simple City List</header>
             <PageableCity citiesPerPage={10}
                           initialPage={0}
                           initialPageCount={data.cities.totalPages}

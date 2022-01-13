@@ -1,9 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@600&display=swap');
+
+body{
+    @apply bg-zinc-100;
+}
 
 div#root{
     @apply w-10/12 m-auto;
+}
+
+.app-header{
+    @apply font-light text-4xl py-1.5;
+    font-family: 'Lato';
 }
 
 .btn {
@@ -18,6 +28,18 @@ div#root{
     @apply bg-gray-100 text-gray-900;
 }
 
+.btn--search {
+    @apply bg-blue-500 font-medium text-sm text-white mx-2;
+}
+
+.search-form {
+    @apply p-1.5 text-right;
+}
+
+.search-form samp {
+    @apply px-1.5;
+}
+
 ul.flx {
     @apply flex w-10/12 m-auto;
 }
@@ -28,16 +50,9 @@ ul.flx li{
 
 
 .hex .city-name{
-    left: 50%;
-    margin-right: -25%;
+    @apply left-[50%] mr-[-25%] absolute top-[50%] p-1 bg-[wheat] border-[wheat] border-2 rounded border-solid;
     -webkit-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
-    background: wheat;
-    border: 1px solid wheat;
-    border-radius: 8px;
-    padding: .25rem;
-    position: absolute;
-    top: 50%;
 }
 
 .hex img {
@@ -55,8 +70,7 @@ ul.flx li{
 }
 
 .hexagon-gallery {
-    margin: auto;
-    margin-top: 50px;
+    margin: 50px auto;
     max-width: 1000px;
     display: grid;
     grid-template-columns: repeat(8, 1fr);

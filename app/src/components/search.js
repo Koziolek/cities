@@ -4,8 +4,8 @@ import {CITY_BY_NAME} from "../queries";
 import {useState} from "react";
 import Modal from 'react-modal';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faWindowClose, faSearch} from '@fortawesome/free-solid-svg-icons';
 
 
 const CityView = ({foundCity}) => {
@@ -72,14 +72,15 @@ export const Search = () => {
                 <button onClick={() => setSearchResult({
                     open: false,
                     city: null
-                })}><FontAwesomeIcon icon={faWindowClose} />
+                })}><FontAwesomeIcon icon={faWindowClose}/>
                 </button>
                 <CityView foundCity={searchResult.city}/>
             </Modal>
             <form onSubmit={handleSubmit}>
-                <div>
-                    Search by name: <label><input className="form-input" type="text" {...bind}/></label>
-                    <input type="submit" value="Search"/>
+                <div className="search-form">
+                    <samp><label htmlFor="search">Search by name: <FontAwesomeIcon icon={faSearch}/></label></samp>
+                    <input name="search" id="search" className="form-input" type="text" {...bind}/>
+                    <input type="submit" value="Search" className="btn btn--search"/>
                 </div>
             </form>
         </>
