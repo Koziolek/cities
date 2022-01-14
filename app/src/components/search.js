@@ -6,19 +6,7 @@ import Modal from 'react-modal';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faWindowClose, faSearch} from '@fortawesome/free-solid-svg-icons';
-
-const customStyles = {
-    content: {
-        top: '25%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        minWidth: '25%',
-        minHeight: '25%',
-        marginRight: '-25%',
-        transform: 'translate(-50%, -50%)',
-    },
-};
+import {modalStyles} from "./modal_styles";
 
 
 const CityView = ({foundCity}) => {
@@ -64,7 +52,7 @@ export const Search = () => {
             <Modal
                 isOpen={searchResult.open}
                 contentLabel="Search"
-                style={customStyles}
+                style={modalStyles}
             >
                 <button onClick={() => setSearchResult({
                     open: false,
@@ -75,9 +63,11 @@ export const Search = () => {
             </Modal>
             <form onSubmit={handleSubmit}>
                 <div className="search-form">
-                    <samp><label htmlFor="search">Search by name: <FontAwesomeIcon icon={faSearch}/></label></samp>
-                    <input name="search" id="search" className="form-input" type="text" {...bind}/>
-                    <input type="submit" value="Search" className="btn btn--search"/>
+                    <samp><label htmlFor="search">Search by name:</label></samp>
+                    <input name="search" id="search" className="search-input" type="text" {...bind}/>
+                    <button type="submit" className="btn btn--search">
+                        <FontAwesomeIcon icon={faSearch}/>
+                    </button>
                 </div>
             </form>
         </>

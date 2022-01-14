@@ -15,8 +15,6 @@ public class CityMutation implements GraphQLMutationResolver {
 		return cityRepository.findById(city.getId())
 				.map(byId -> {
 					byId.setPhoto(city.getPhoto());
-					return byId;
-				}).map(byId -> {
 					byId.setName(city.getName());
 					return byId;
 				}).map(cityRepository::save)

@@ -1,78 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import ReactPaginate from 'react-paginate';
-import Modal from 'react-modal';
 
 import {Search} from "./search";
 
-import {useMutation, useQuery} from "@apollo/client";
-import {GET_CITIES, UPDATE_CITY} from "../queries";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faWindowClose} from "@fortawesome/free-solid-svg-icons";
-
-const customStyles = {
-    content: {
-        top: '25%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        minWidth: '50%',
-        minHeight: '15%',
-        marginRight: '-25%',
-        transform: 'translate(-50%, -50%)',
-    },
-};
-
-const CityEditor = ({open, city, setEditor, updateAction}) => {
-    const [updateCity, {}] = useMutation(UPDATE_CITY);
-    const closeEditor = () => {
-        setEditor({
-            open: false,
-            city: {name: "", photo: "", id: 0}
-        });
-    }
-
-    const handleEdit = (data) => {
-        data.preventDefault();
-        updateCity({
-            onCompleted: (data) => {
-                updateAction()
-            },
-            variables: {
-                id: data.target.id.value,
-                name: data.target.name.value,
-                photo: data.target.photo.value
-            }
-        });
-
-        closeEditor();
-    }
-
-    return (
-        <>
-            <Modal
-                isOpen={open}
-                contentLabel="Edit City"
-                style={customStyles}
-            >
-                <button onClick={closeEditor}><FontAwesomeIcon icon={faWindowClose}/>
-                </button>
-                <form onSubmit={handleEdit}>
-                    <input type="hidden" value={city.id} id="id" name="id"/>
-                    <div>
-                        <label htmlFor="name">City name: </label>
-                        <input defaultValue={city.name} name="name" id="name" className="form-input"/>
-                    </div>
-                    <div>
-                        <label htmlFor="photo">City photo: </label>
-                        <input defaultValue={city.photo} name="photo" id="photo" className="form-input"/>
-                    </div>
-                    <input type="submit" value="Save" className="btn btn--primary"/>
-                    <input type="button" onClick={closeEditor} value="Cancel" className="btn btn--secondary"/>
-                </form>
-            </Modal>
-        </>
-    )
-}
+import {useQuery} from "@apollo/client";
+import {GET_CITIES} from "../queries";
+import {CityEditor} from "./city_editor";
 
 const Cities = ({currentCities, updateAction}) => {
     const [editor, setEditor] = useState({

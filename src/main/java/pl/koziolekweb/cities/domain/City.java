@@ -24,6 +24,7 @@ public class City {
 	private String name;
 	@Column(columnDefinition = "TEXT")
 	private String photo;
+
 	@Column(columnDefinition = "TEXT")
 	private String normalizedName;
 

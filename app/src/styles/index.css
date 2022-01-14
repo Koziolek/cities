@@ -9,7 +9,7 @@ body {
 }
 
 div#root {
-    @apply w-10/12 m-auto;
+    @apply w-10/12 max-w-[1200px] m-auto;
 }
 
 .app-header {
@@ -29,15 +29,62 @@ div#root {
 }
 
 .btn--search {
-    @apply bg-blue-500 font-medium text-sm text-white mx-2;
+    @apply bg-blue-500 font-medium text-base text-white mx-2 p-2 mr-0;
 }
 
 .search-form {
-    @apply p-1.5 text-right;
+    @apply p-1.5 pr-0 text-right m-auto;
+    max-width: 1200px;
+}
+
+.search-form .search-input {
+    @apply border-none focus:border-none rounded lowercase mr-0;
+}
+
+.search-form .search-input:focus {
+    box-shadow: 0 0 transparent, 0 0 transparent, var(--tw-shadow) !important;
 }
 
 .search-form samp {
     @apply px-1.5;
+}
+
+.modal-pop {
+    @apply bg-zinc-200 absolute mr-[-25%] p-4 rounded min-w-[50%] max-w-[50%]  min-h-[25%] max-h-[75%] overflow-auto;
+    inset: 25% auto auto 50%;
+    outline: currentcolor none medium;
+    transform: translate(-50%, -50%);
+}
+
+.modal-close-btn {
+    @apply block w-full text-right;
+}
+
+.edit-form {
+    @apply w-4/5 m-auto;
+}
+
+.edit-form .editor-row {
+    @apply my-1;
+}
+
+.edit-form .editor-row:last-of-type {
+    @apply text-right;
+}
+
+.edit-form .editor-row:last-of-type .btn {
+    @apply ml-2 min-w-[6rem];
+}
+
+.edit-form label {
+    @apply block text-lg font-['Lato'] p-2;
+}
+
+.edit-form input[type="text"] {
+    @apply w-full p-2 border-none focus:border-none rounded;
+}
+.edit-form input[type="text"]:focus {
+     box-shadow: 0 0 transparent, 0 0 transparent, var(--tw-shadow) !important;
 }
 
 ul.flx {
@@ -48,9 +95,8 @@ ul.flx li {
     @apply flex-1 text-center;
 }
 
-
 .hex .city-name {
-    @apply left-[50%] mr-[-25%] absolute top-[50%] p-1 bg-[wheat] border-[wheat] border-2 rounded border-solid;
+    @apply left-[50%] mr-[-25%] absolute top-[50%] p-1 bg-amber-100 border-amber-100 border-2 rounded border-solid cursor-pointer;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
@@ -70,8 +116,8 @@ ul.flx li {
 }
 
 .hexagon-gallery {
-    margin: 50px auto;
-    max-width: 1000px;
+    margin: 25px auto 50px;
+    max-width: 1200px;
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-auto-rows: 200px;
@@ -82,8 +128,8 @@ ul.flx li {
 .hex {
     display: flex;
     position: relative;
-    width: 240px;
-    height: 265px;
+    width: 300px;
+    height: 280px;
     background-color: #424242;
     -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
