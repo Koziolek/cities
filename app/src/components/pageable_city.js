@@ -1,22 +1,99 @@
 import React, {useEffect, useState} from 'react';
 import ReactPaginate from 'react-paginate';
-import {useQuery} from "@apollo/client";
-import {GET_CITIES} from "../queries";
+import Modal from 'react-modal';
+
 import {Search} from "./search";
 
-const editCity = (city) => {
-    console.log("Edit " + city.name);
-}
+import {useMutation, useQuery} from "@apollo/client";
+import {GET_CITIES, UPDATE_CITY} from "../queries";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faWindowClose} from "@fortawesome/free-solid-svg-icons";
 
-const Cities = ({currentCities}) => {
+const customStyles = {
+    content: {
+        top: '25%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        minWidth: '50%',
+        minHeight: '15%',
+        marginRight: '-25%',
+        transform: 'translate(-50%, -50%)',
+    },
+};
+
+const CityEditor = ({open, city, setEditor, updateAction}) => {
+    const [updateCity, {}] = useMutation(UPDATE_CITY);
+    const closeEditor = () => {
+        setEditor({
+            open: false,
+            city: {name: "", photo: "", id: 0}
+        });
+    }
+
+    const handleEdit = (data) => {
+        data.preventDefault();
+        updateCity({
+            onCompleted: (data) => {
+                updateAction()
+            },
+            variables: {
+                id: data.target.id.value,
+                name: data.target.name.value,
+                photo: data.target.photo.value
+            }
+        });
+
+        closeEditor();
+    }
+
     return (
         <>
+            <Modal
+                isOpen={open}
+                contentLabel="Edit City"
+                style={customStyles}
+            >
+                <button onClick={closeEditor}><FontAwesomeIcon icon={faWindowClose}/>
+                </button>
+                <form onSubmit={handleEdit}>
+                    <input type="hidden" value={city.id} id="id" name="id"/>
+                    <div>
+                        <label htmlFor="name">City name: </label>
+                        <input defaultValue={city.name} name="name" id="name" className="form-input"/>
+                    </div>
+                    <div>
+                        <label htmlFor="photo">City photo: </label>
+                        <input defaultValue={city.photo} name="photo" id="photo" className="form-input"/>
+                    </div>
+                    <input type="submit" value="Save" className="btn btn--primary"/>
+                    <input type="button" onClick={closeEditor} value="Cancel" className="btn btn--secondary"/>
+                </form>
+            </Modal>
+        </>
+    )
+}
+
+const Cities = ({currentCities, updateAction}) => {
+    const [editor, setEditor] = useState({
+        open: false,
+        city: {name: "", photo: "", id: 0}
+    });
+
+    return (
+        <>
+            <CityEditor city={editor.city} open={editor.open} setEditor={setEditor} updateAction={updateAction}/>
             <section className="hexagon-gallery">
                 {currentCities &&
                 currentCities.map((city) => (
                     <div className="hex">
                         <div className="hex-content">
-                            <span className="city-name">{city.name}</span>
+                            <span className="city-name" onClick={() =>
+                                setEditor({
+                                    open: true,
+                                    city: city
+                                })
+                            }>{city.name}</span>
                         </div>
                         <img src={city.photo} alt={"City of " + city.name} className="object-scale-down h-12"/>
                     </div>
@@ -50,11 +127,14 @@ export const PageableCity = ({citiesPerPage, initialCities, initialPage, initial
         setCurrentPage(newPage);
     };
 
+    const handleUpdate = () => {
+        setCurrentPage(currentPage);
+    };
 
     return (
         <>
             <Search/>
-            <Cities currentCities={currentCities}/>
+            <Cities currentCities={currentCities} updateAction={handleUpdate}/>
             <ReactPaginate
                 className="flx"
                 pageClassName="flx-1"

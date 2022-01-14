@@ -7,6 +7,19 @@ import Modal from 'react-modal';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faWindowClose, faSearch} from '@fortawesome/free-solid-svg-icons';
 
+const customStyles = {
+    content: {
+        top: '25%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        minWidth: '25%',
+        minHeight: '25%',
+        marginRight: '-25%',
+        transform: 'translate(-50%, -50%)',
+    },
+};
+
 
 const CityView = ({foundCity}) => {
     if (foundCity) {
@@ -46,22 +59,6 @@ export const Search = () => {
         });
         resetSearch();
     }
-
-
-    const customStyles = {
-        content: {
-            top: '25%',
-            left: '25%',
-            right: 'auto',
-            bottom: 'auto',
-            minWidth: '25%',
-            minHeight: '25%',
-            // marginRight: '-50%',
-            // transform: 'translate(-50%, -50%)',
-        },
-    };
-
-
     return (
         <>
             <Modal
